@@ -1,21 +1,38 @@
-# ai-book-buyer
+# AI Book Buyer
 
-## What?
+## Overview
 
-Take in a title of a book.
+AI Book Buyer helps you find great deals on books.
 
-1. Provide information on it -- do I want to buy this?
-2. Bookfinder search... with parsing of text and the assembly of a list
-3. Give me other books that are similar to this one that I might want
+## Installation
 
-To install dependencies:
-
-```bash
+1. Ensure you have [Bun](https://bun.sh/) installed on your system.
+2. Clone this repository:
+```
+git clone https://github.com/yourusername/ai-book-buyer.git
+cd ai-book-buyer
+```
+3. Install dependencies:
+```
 bun install
 ```
 
-To run:
+## Usage
 
-```bash
+Run the application with:
+
+```
 bun run start
 ```
+
+Enter the author and title of the book you're interested in. The AI will then search for and analyze the best deals available, providing you a curated summary.
+
+## Dependencies
+
+- easy-agent: For creating and managing the AI agent.
+- jsdom: For parsing HTML content.
+- fs: For file system operations (used for debugging).
+
+## Acknowledgements
+
+Shout out to @kmrrohit for figuring out the Bookfinder request cycle live on Twitch!

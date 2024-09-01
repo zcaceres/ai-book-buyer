@@ -1,0 +1,490 @@
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en-us">
+<head>
+<script type="text/javascript" src="https://www.bookfinder.com/static/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="https://www.bookfinder.com/static/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://www.bookfinder.com/static/js/overlib/overlib_mini.js"></script>
+<script type="text/javascript" src="https://www.bookfinder.com/static/js/pageload.js?v=1"></script>
+<script type="text/javascript" src="https://www.bookfinder.com/static/js/load_gtag.js"></script>
+<link type="text/css" rel="stylesheet" href="//d3uahvj51kpljk.cloudfront.net/static/css/banner.css">
+<!--Used for the feedback survey banner -->
+<style>
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+    }
+}
+.survey-desc {
+    display: flex;
+}
+.survey-link {
+    padding-left: 4px;
+}
+</style>
+<script type="text/javascript">
+    if(location.origin.includes("bookfinder") || hasCookie('jbconsent')){
+ 	loadGtag();
+      }
+  
+    function hasCookie(CookieName) {
+        if (document.cookie.includes(CookieName)) {
+           return true;
+        } else {
+            return false;
+    }    }
+    function loadGtag(){
+          var gaScript = document.createElement('script');
+          gaScript.async = true;
+          gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-2TKEZDMFLX';
+          document.head.appendChild(gaScript);
+     }
+    function trackOutboundLink(event, link, category, action) {
+        try {
+	    gtag('event', 'category', {
+  		    'event_category': 'action',
+  		    'non_interaction': true
+  		  });
+        } catch(err){}
+     
+        if(event.button === 0 && !event.ctrlKey && !event.metaKey){
+            event.preventDefault();
+            setTimeout(function() {
+                document.location.href = link.href;
+            }, 100);
+          return false;
+        } else {
+          return true;
+        }
+    }
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+function isPrIlPresent() {
+  const searchPrefCookie = getCookie('search_prefs');
+  const currentOrigin = window.origin;
+  return searchPrefCookie && searchPrefCookie.includes('il&en') && currentOrigin.includes('bookfinder');
+}
+function surveyBanner() {
+  const bannerElement = document.querySelector('.banner.container-fluid');
+  if (bannerElement) {
+    if (isPrIlPresent()) {
+      bannerElement.style.display = 'flex';
+    } else {
+      bannerElement.style.display = 'none';
+    }
+  }
+}
+window.addEventListener('load',surveyBanner);
+</script>
+<div class="banner container-fluid" id="feedback-survey-banner" >
+                     <div class="banner_content">
+                              <div class="container container-fluid survey-desc">
+                                      <img src="//d3uahvj51kpljk.cloudfront.net/static/img/document.svg"/>Your voice matters!
+                        <a href="https://amazonextna.qualtrics.com/jfe/form/SV_8DiCwRFpsDC0w7Q" target="_blank" rel="noopener noreferrer" class ="survey-link">
+                                Take our quick survey and help us make BookFinder even better.</a>
+                              </div>
+                        <span class="closebtn" onclick="document.getElementById('feedback-survey-banner').style.display='none';">
+                              <img src="//d3uahvj51kpljk.cloudfront.net/static/img/close.svg" alt="close" />
+                              </span>
+                              </br>
+                        </div>
+                     </div>
+<title>BookFinder.com: How to link to a BookFinder.com search</title>
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="y_key" content="c6e31ad0992202fc" >
+<meta name="format-detection" content="telephone=no" />
+<meta name="msvalidate.01" content="7A4771BDEBD5D8ACF487F0F26B961C43" />
+<meta name="keywords" content="books, book store, new books, antiquarian books, antique books, old books, hard to find books, buy cheap books online, book meta search" />
+<link rel="stylesheet" media="all" href="https://d3uahvj51kpljk.cloudfront.net/static/css/index.2023-07-15.css" type="text/css">
+<!-- Latest compiled and minified CSS -->
+<link rel="home" href="https://www.bookfinder.com/">
+<link rel="help" href="https://www.bookfinder.com/help/">
+<link rel="glossary" href="https://www.bookfinder.com/help/glossary/">
+<link rel="P3Pv1" href="https://www.bookfinder.com/site/p3p/prf/">
+<link rel="shortcut icon" href="https://d3uahvj51kpljk.cloudfront.net/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="https://d3uahvj51kpljk.cloudfront.net/images/icon/apple-touch-icon.bf.png" type="image/x-icon">
+<link rel="search" type="application/opensearchdescription+xml" href="https://www.bookfinder.com/site/opensearch/" title="BookFinder.com">
+<link rel="canonical" href="https://www.bookfinder.com/interact/link/search/" />
+<script type="text/javascript">
+$(document).ready(function(){
+<!-- putting our NoPOD / NoISBN events here -->
+    
+    
+    $("#search_form").submit(function(e) {
+        optinForm = this;
+        if (window._gat) {
+            e.preventDefault();
+            var minYear = $("#min_year").val();
+            var maxYear = $("#max_year").val();
+            var eventLabel = "";
+            if ($("#author").val()) {
+                eventLabel = "|author:" + $("#author").val();
+            }
+            if ($("#title").val()) {
+                eventLabel = eventLabel + "|title:" + $("#title").val();
+            } 
+            if ($("#keywords").val()) {
+                eventLabel = eventLabel + "|keywords:" + $("#keywords").val();
+            } 
+            if (minYear && maxYear) {
+		gtag('event', 'PubDate', {
+                'event_category': 'min-max',
+		'event_year': minYear + '-' + maxYear +''+ eventLabel,
+                'non_interaction': true
+               });     
+            } else if (minYear) {
+		gtag('event', 'PubDate', {
+                 'event_category': 'min',
+                 'event_year': minYear +''+ eventLabel,
+                 'non_interaction': true
+               });                 
+            } else if (maxYear) {
+		gtag('event', 'PubDate', {
+                 'event_category': 'max',
+                 'event_year': maxYear +''+eventLabel,
+                 'non_interaction': true
+               });   
+            }
+            setTimeout(function() { optinForm.submit();}, 25);
+        }
+    });
+});
+</script>
+<!-- abe-gdpr-banner -->
+</head>
+<!-- SI:/hn=p-10-0-3-230/hp=12/cp=7/mu=48/la=0.9/df=27/bx=2amdepyc7.2200.7883/up=26/ -->
+<body class="">
+<!-- abe-gdpr-banner -->
+<!-- start yui grids doc, sidebar on right -->
+<div id="doc3" class="yui-t4"
+>
+<div id="hd"> <!-- start yui grids header -->
+  <div align="center" id="header">
+    <!-- 127.0.0.1 -->
+<!--  -->
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr id="header-row-1">
+  <td align="left" id="header-section-logo">
+    <a href="https://www.bookfinder.com/?ref=bf_uu_hd_1" rel="home" title="BookFinder.com: Search for New & Used Books, Textbooks, Rare Books & Out-of-Print Books">
+        <img src="https://d3uahvj51kpljk.cloudfront.net/images/site/title/sites/www.bookfinder.com.gif" alt="BookFinder.com" width="186" height="19" id="header-site-logo" title="BookFinder.com: Search for New & Used Books, Textbooks, Rare Books & Out-of-Print Books"></a>
+</td><td>
+&nbsp;
+  </td>
+  <td align="right" id="header-section-links">
+<a href="https://www.bookfinder.com/?ref=bf_uu_hd_2" title="">Search</a> |
+<a href="https://www.bookfinder.com/about/?ref=bf_uu_hd_3" title="Information about BookFinder.com and the folks who run it">About</a> |
+<a href="https://www.bookfinder.com/my/preferences/?ref=bf_uu_hd_4" title="">Preferences</a> |
+<a href="https://www.bookfinder.com/interact/comments/?ref=bf_uu_hd_5" title="Find out how to interact with the folks at BookFinder.com">Feedback</a> |
+<a href="https://www.bookfinder.com/help/?ref=bf_uu_hd_6" title="How to use the BookFinder.com web site -- FAQs and tips">Help</a>
+  </td>
+</tr>
+<tr style="height: 7px" bgcolor="black"><td height="7" colspan="3" style="height: 7px; background-color: black; padding: 0; margin: 0" bgcolor="black"></td></tr>
+<tr bgcolor="#8888ff" id="header-row-2">
+  <td align="left" id="header-section-context">
+<span class="page-breadcrumb"><a href="https://www.bookfinder.com/" title="">Home</a> &gt; <a href="https://www.bookfinder.com/interact/" title="Find out how to interact with the folks at BookFinder.com">Interact</a> &gt; <a href="https://www.bookfinder.com/interact/link/" title="How to link to BookFinder.com, including specific searches">Link to us</a> &gt; Link to a search</span>
+  </td>
+  <td align="left" id="header-section-search" width=70% colspan=2>
+<form action="https://www.bookfinder.com/search/" method="GET" accept-charset="iso-8859-1" name="header-search-form" id="header-search-form" class="header-search-form" >
+<div style="padding: 2px; font-size: small">
+<label style="display: none">Search Author, Title or ISBN   </label>
+<input style="font-size: small" id="header-search-form-input" name="keywords" type="text" value=""  size="45" tabindex="200">
+    <input type="hidden" name="currency" value="USD">
+    <input type="hidden" name="lang" value="en">
+<input type="hidden" name="st" value="sh">
+<input type="hidden" name="ac" value="qr">
+<button style="background-color: #ececff; font-size: small" type="submit" name="submit" tabindex="201">Go</button>
+</div>
+</form>
+<script type="text/javascript" language="javascript">
+ $(document).ready(function(){
+       $('#header-search-form').on('submit', function(){
+            var languageInputField = $("[name|=lang]");
+            if (languageInputField.length > 0) {
+               var language = $(languageInputField[0]).val();
+                if (language === 'any') {
+                    var prefs = $.cookie('search_prefs');
+                    if (!prefs) {
+                        lang = 'no cookie';
+                    } else {
+                        var langIndex = prefs.indexOf('lang&');
+                        if (langIndex === -1) {
+                            lang = 'not set';
+                        } else {
+                            var searchStringLength = 'lang&'.length;
+                            var MAX_LANG_LENGTH = 3;
+                            var lang = prefs.substring(langIndex + searchStringLength, langIndex + searchStringLength + MAX_LANG_LENGTH);
+                            if (lang.indexOf('&') !== -1) { //language preference has a '&' on the end of it
+                              lang = lang.substring(0, lang.indexOf('&'));
+                            }
+                        }
+                    }
+                    lang = lang.replace(/(['"])/g, "\\$1");
+		    gtag('event', 'AnyLanguage', {
+                 'event_category': lang,
+                 'non_interaction': true
+               });
+                }
+            }
+        }); 
+ });
+ if (document && document.getElementById &&
+    document.getElementById('header-search-form-input')) {
+    var def = 'Search Author, Title or ISBN   ';
+    var def_query = '';
+    if (!def_query) {
+      document.getElementById('header-search-form-input').style.color = '#8888ff';
+      document.getElementById('header-search-form-input').value = def;
+    }
+    document.getElementById('header-search-form-input').onfocus =
+        function() {
+ 	    if (this.value == def) {
+		this.value = '';
+		this.style.color = '';
+	    }
+        };
+    document.getElementById('header-search-form-input').onblur =
+        function() {
+	    if ((! this.value) && (! this.value.length)) {
+		this.style.color = '#8888ff';
+		this.value = def;
+	    }
+        };
+    document.getElementById('header-search-form').onsubmit =
+        function() {
+	    var input = document.getElementById('header-search-form-input');
+	    if (input && input.value && (input.value == def)) {
+		input.value = '';
+	        input.focus();
+		return false;
+	    }
+        };
+}
+</script>
+  </td>
+</tr>
+</table>
+    <h2 class="page-heading">How to link directly to a search</h2>
+  </div> <!-- end div header -->
+</div> <!-- end yui grids header -->
+<div id="bd"
+> <!-- start yui grids body -->
+   <!-- start first block of row -->
+   <div id="yui-main"><div class="yui-b">
+     <div id="page-sidebar-table-content-area">
+
+
+
+
+<div class="interact-link-example">
+
+<p><b>For a link like this:</b></p>
+
+<blockquote>
+<a href="https://www.bookfinder.com/search/?author=Deep+Work&title=Cal+Newport&lang=en&st=xl&ac=qr">&#8220;Cal Newport&#8221; by Deep Work</a>
+</blockquote>
+
+<p><b>Copy this URL:</b></p>
+
+<blockquote>
+https://www.bookfinder.com/search/?author=Deep+Work&amp;title=Cal+Newport&amp;lang=en&amp;st=xl&amp;ac=qr
+</blockquote>
+
+<p><b>Copy this HTML:</b></p>
+
+<blockquote>
+<textarea class="code-example-long" style="text-align: center; padding: 0.5em">&lt;a href=&quot;https://www.bookfinder.com/search/?author=Deep+Work&amp;title=Cal+Newport&amp;lang=en&amp;st=xl&amp;ac=qr&quot;&gt;&amp;#8220;Cal Newport&amp;#8221; by Deep Work&lt;/a&gt;</textarea>
+</blockquote>
+
+</div>
+
+<hr style="margin: 2em 0">
+
+<dl id="interact-link-three-options">
+<dt>Option 1: Click on the "Link to this search" link</dt>
+<dd>Run any BookFinder.com search, and click on the "Link to this search" link at the bottom of the page. We'll show you the HTML to use.</dd>
+
+<dt>Option 2: Generate a link</dt>
+<dd>
+
+<table><tr><td style="padding: 0 4em 0 0">
+
+  <form method="GET" action="https://www.bookfinder.com/interact/link/search/">
+  <table border="0">
+  <tr><th align="right">Author</th>
+      <td><input type="text" name="author"></tr>
+  <tr><th align="right">Title</th>
+      <td><input type="text" name="title"></tr>
+  <tr><th align="right">Language</th>
+      <td>Book is written in <select name="lang" id="lang"><option value="any">Any Language</option><option value="nl">Dutch</option><option value="en" selected>English</option><option value="fr">French</option><option value="de">German</option><option value="it">Italian</option><option value="es">Spanish</option></select>
+</td>
+  <tr><td align="right">&nbsp;</td>
+      <td><input type="submit" value="Generate link"></td></tr>
+  </table>
+  </form>
+
+</td><td style="padding: 0">
+
+  <form method="GET" action="https://www.bookfinder.com/interact/link/search/">
+  <table border="0">
+  <tr><th align="right">ISBN</th>
+      <td><input type="text" name="isbn"></tr>
+  <tr><td align="right">&nbsp;</td>
+      <td><input type="submit" value="Generate link"></td></tr>
+  </table>
+  </form>
+</td></tr></table>
+
+</dd>
+
+<dt>Option 3: Create your own links (don't forget to URI escape)</dt>
+<dd>
+
+<ul>
+<li><span class="nowrap">https://www.bookfinder.com/search/?author=<var class="interact-link-search-var">Author</var>&amp;st=xl&amp;ac=qr</span></li>
+<li><span class="nowrap">https://www.bookfinder.com/search/?title=<var class="interact-link-search-var">Title</var>&amp;st=xl&amp;ac=qr</span></li>
+<li><span class="nowrap">https://www.bookfinder.com/search/?isbn=<var class="interact-link-search-var">ISBN</var>&amp;st=xl&amp;ac=qr</span></li>
+<li><span class="nowrap">https://www.bookfinder.com/search/?author=<var class="interact-link-search-var">Author</var>&amp;title=<var class="interact-link-search-var">Title</var>&amp;st=xl&amp;ac=qr</span></li>
+</ul>
+</dd>
+
+</dl>
+
+
+   </div> <!-- end page-sidebar-table-content-area -->
+ </div></div> <!-- end first block of first row, yui-b and yui-main -->
+
+<!-- second block of first main row -->
+<div class="yui-b">
+  <div id="page-sidebar-table-sidebar-area">
+     <div align="left" class="right-bar">             <h4><a href="https://www.bookfinder.com/interact/link/">Link to us</a></h4>             <ul> <li><a href="https://www.bookfinder.com/interact/link/direct/" title="How to link to BookFinder.com with a text or image link">Link to our site</a></li> <li class="unlinked"><a class="unlinked" title="How to link to BookFinder.com, including specific searches">Link to a search</a></li>             </ul> </div> 
+  </div> <!-- end page-sidebar-table-sidebar-area -->
+</div> <!-- end yui-b -->
+
+</div> <!-- end yui grids body: bd -->
+
+</div> <!-- end yui grids div width from begin -->
+
+<div id="ft"> <!-- yui grids footer -->
+  
+
+
+
+
+
+
+
+
+
+
+
+<div id="footer" class="robots-nocontent">
+
+<table id="footer-sitemap-link-lists" class="footer-child"><tr class="footer-flex">
+<td class="footer-sitemap-link-column">
+  <p><a href="https://www.bookfinder.com/?ref=bf_uu_ft_o1" title=""><strong>Book search</strong>
+</a></p>        <p>
+          
+<a href="https://www.bookfinder.com/isbn_search/" >ISBN search</a>
+</p><p>
+<a href="https://www.bookfinder.com/textbooks/" title="Find cheap college textbooks">Textbooks</a>
+</p><p>
+<a href="https://www.bookfinder.com/signed_books/" title="Search for signed, autographed, and inscribed books">Signed books</a>
+</p><p><a href="https://www.bookfinder.com/buyback/">Textbook buyback</a>        </p>
+</td>
+<td class="footer-sitemap-link-column">
+  <p><a href="https://www.bookfinder.com/help/?ref=bf_uu_ft_o2" title="How to use the BookFinder.com web site -- FAQs and tips"><strong>Help</strong>
+</a></p>        <p>
+          
+<a href="https://www.bookfinder.com/help/faq/" title="Frequently asked questions about BookFinder.com">FAQ</a>
+</p><p>
+<a href="https://www.bookfinder.com/help/glossary/" title="Find out what booksellers means when they write things like '8vo' or 'chipping'">Glossary</a>
+        </p>
+</td>
+<td class="footer-sitemap-link-column">
+  <p><a href="https://www.bookfinder.com/about/?ref=bf_uu_ft_o3" title="Information about BookFinder.com and the folks who run it"><strong>About</strong>
+</a></p>        <p>
+          
+<a href="https://www.bookfinder.com/about/booksellers/" title="A list of listings services and booksellers BookFinder.com works with">Our booksellers</a>
+</p><p>
+<a href="https://www.bookfinder.com/about/press/" >For the press</a>
+</p><p>
+<a href="https://www.bookfinder.com/about/mentions/" title="What the media has been saying about BookFinder.com">Media mentions</a>
+        </p>
+</td>
+<td class="footer-sitemap-link-column">
+  <p><a href="https://www.bookfinder.com/interact/?ref=bf_uu_ft_o4" title="Find out how to interact with the folks at BookFinder.com"><strong>Interact</strong>
+</a></p>        <p>
+          
+<a href="https://www.bookfinder.com/interact/link/" title="How to link to BookFinder.com, including specific searches">Link to us</a>
+</p><p>
+<a href="https://www.bookfinder.com/interact/comments/" >Feedback</a>
+</p><p>
+<a href="https://www.bookfinder.com/interact/lists/" title="Find out about BookFinder.com's email mailing lists">Mailing lists</a>
+        </p>
+</td>
+<td class="footer-sitemap-link-column">
+  <p><a href="https://www.bookfinder.com/books/?ref=bf_uu_ft_o5" title=""><strong>Articles</strong>
+</a></p>        <p>
+          <a href="https://www.bookfinder.com/books/bookfinder_report/" title="Popular out of print searches">BookFinder.com Report</a>        </p>
+</td>
+<td class="footer-sitemap-link-column">
+  <p><a href="https://www.bookfinder.com/my/preferences/?ref=bf_uu_ft_o6" title=""><strong>Preferences</strong>
+</a></p></td>
+</tr></table>
+
+<!-- start websites line -->
+<div class="footer-child">
+    <div id="footer-websites-block" class="footer-flex">
+        <a href="http://www.bookfinder.com/?ref=bf_uu_ft_s1">BookFinder.com</a>        <a href="http://www.justbooks.co.uk/?ref=bf_uu_ft_s2">JustBooks.co.uk</a>        <a href="http://www.justbooks.de/?ref=bf_uu_ft_s3">JustBooks.de</a>        <a href="http://www.justbooks.fr/?ref=bf_uu_ft_s4">JustBooks.fr</a>        <a href="http://www.justbooks.nl/?ref=bf_uu_ft_s5">JustBooks.nl</a>    </div>
+<!-- end websites line -->
+
+<!-- start language mode line -->
+<div id="footer-language-landing-pages-block" class="footer-flex">
+    <div class="footer-language-left footer-flex">
+        <div class="footer-language-description">
+Search for books in...&nbsp;
+        </div>
+    </div>
+    <div class="footer-language-right footer-flex">
+
+        <a href="https://www.bookfinder.com?lang=any&mode=advanced&ref=bf_uu_ft_l1">Any Language</a>&nbsp;
+        <a href="https://www.bookfinder.com/dutch_books/?ref=bf_uu_ft_l2">Dutch</a>&nbsp;
+        <a href="https://www.bookfinder.com/french_books/?ref=bf_uu_ft_l3">French</a>&nbsp;
+        <a href="https://www.bookfinder.com/german_books/?ref=bf_uu_ft_l4">German</a>&nbsp;
+        <a href="https://www.bookfinder.com/italian_books/?ref=bf_uu_ft_l5">Italian</a>&nbsp;
+        <a href="https://www.bookfinder.com/spanish_books/?ref=bf_uu_ft_l6">Spanish</a>&nbsp;
+    </div>
+</div>
+<!-- end language mode line -->
+
+<!-- start legal line -->
+<div id="footer-legal-block" class="footer-flex footer-small">
+
+    <span>
+        &copy; 1997-2024 <a href="https://www.bookfinder.com/about/">BookFinder.com</a>&reg;
+    </span>
+     <a href="https://www.bookfinder.com/about/conditions/">Conditions of use</a>
+    <a href="/about/dmca/">DMCA</a>
+    <a href="https://www.bookfinder.com/about/privacy/">Privacy policy</a>
+</div>
+<!-- end legal line -->
+
+</div>
+
+</div> <!-- end footer -->
+
+<!-- SI:/hn=p-10-0-3-230/hp=12/cp=7/mu=48/la=0.9/df=27/bx=2amdepyc7.2200.7883/up=26/ -->
+<!-- TM:/TOsi=0.04/ABsh1=0.00/ABsh2=0.00/TOga=0.00/ -->
+
+
+</div> <!-- end ft -->
+
+
+</body>
+</html>
+
