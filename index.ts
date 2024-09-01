@@ -1,0 +1,19 @@
+import { EasyAgentCLI, Agent, Tool } from "easy-agent";
+
+let url = `https://www.bookfinder.com/search/?ac=sl&st=sl&ref=bf_s2_a1_t1_1&qi=JSyeZptJJVLsUHNjIIEdx38XQ1A_1725132292_1:6815:12344&bq=author%3Djames%2520dyson%26title%3Dagainst%2520the%2520odds`;
+
+const BookFinder = Tool.create({
+  name: "search_on_bookfinder",
+  description:
+    "Search for a book on bookfinder.com and return a list of titles, authors, conditions, and prices",
+  inputs: [],
+  fn: () => {},
+});
+
+const BookBuyer = Agent.create({
+  name: "bb",
+  model: "claude-3-5-sonnet-20240620",
+  tools: [],
+});
+
+EasyAgentCLI.start([BookBuyer]);
